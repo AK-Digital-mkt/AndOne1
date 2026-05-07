@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arda Opening Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+Ethiopic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F5A623;
+    --orange-dark: #d4891a;
+    --bg: #111111;
+    --bg2: #1c1c1c;
+    --bg3: #252525;
+    --text: #ffffff;
+    --text-muted: #888888;
+    --card-bg: #1e1e1e;
+    --card-border: #2d2d2d;
+    --radius: 18px;
+    --nav-height: 80px;
+  }
+  [data-theme="light"] {
+    --bg: #f0ece4;
+    --bg2: #e8e3da;
+    --bg3: #ddd8ce;
+    --text: #1a1a1a;
+    --text-muted: #666666;
+    --card-bg: #ffffff;
+    --card-border: #e0dbd0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
+  body.amharic, body.oromo { font-family: 'Noto Sans Ethiopic', 'Outfit', sans-serif; }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80') center/cover no-repeat;
+    transform: translateY(0);
+    transition: transform 0.1s linear;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.75) 100%);
+  }
+  .hero-content {
+    position: absolute; bottom: 24px; left: 20px; right: 20px;
+  }
+  .hero-title {
+    font-size: clamp(28px, 8vw, 42px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 8px;
+    font-size: 13px; font-weight: 600; color: #fff;
+  }
+  .hero-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
+  /* TOP BAR */
+  .topbar {
+    position: absolute; top: 16px; right: 16px; left: 16px;
+    display: flex; justify-content: flex-end; gap: 10px; z-index: 10;
+  }
+  .lang-switcher {
+    display: flex; align-items: center;
+    background: rgba(30,30,30,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 50px; padding: 4px;
+    gap: 2px;
+  }
+  .lang-btn {
+    padding: 6px 14px; border-radius: 50px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    background: transparent; color: #aaa;
+    transition: all 0.2s;
+  }
+  .lang-btn.active { background: var(--orange); color: #fff; }
+  .theme-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(30,30,30,0.85);
+    backdrop-filter: blur(8px);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; transition: transform 0.3s;
+  }
+  .theme-btn:hover { transform: rotate(20deg); }
+
+  /* CATEGORIES */
+  .categories {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 20px 16px 4px;
+    scrollbar-width: none;
+  }
+  .categories::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    white-space: nowrap; padding: 10px 20px;
+    border-radius: 50px; border: none; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    background: var(--bg3); color: var(--text-muted);
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  .cat-btn.active { background: var(--orange); color: #fff; }
+  .cat-btn:hover:not(.active) { background: var(--bg2); color: var(--text); }
+
+  /* MENU ITEMS */
+  .menu-list {
+    padding: 16px 16px calc(var(--nav-height) + 20px);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .menu-item {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.4s ease both;
+  }
+  .menu-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .item-img {
+    width: 90px; height: 80px; border-radius: 12px;
+    object-fit: cover; flex-shrink: 0;
+    background: var(--bg3);
+  }
+  .item-info { flex: 1; min-width: 0; }
+  .item-name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .item-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item-price { font-size: 15px; font-weight: 700; color: var(--orange); margin-top: 6px; }
+  .item-arrow { color: var(--text-muted); font-size: 18px; flex-shrink: 0; }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-around;
+    background: var(--card-bg);
+    border-top: 1px solid var(--card-border);
+    height: var(--nav-height);
+    padding: 8px 20px 16px;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted); font-size: 22px;
+    transition: color 0.2s;
+    padding: 4px 16px; border-radius: 50px;
+  }
+  .nav-btn.home-btn {
+    background: var(--orange);
+    color: #fff;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    font-size: 24px;
+    padding: 0;
+    box-shadow: 0 4px 16px rgba(245,166,35,0.4);
+  }
+  .nav-btn:hover:not(.home-btn) { color: var(--text); }
+
+  /* MODAL BACKDROP */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: flex; align-items: flex-end; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-backdrop.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--card-bg);
+    border-radius: 24px 24px 0 0;
+    padding: 28px 24px 40px;
+    width: 100%; max-width: 480px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .modal-backdrop.open .modal { transform: translateY(0); }
+  .modal-icon-wrap {
+    width: 60px; height: 60px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 20px;
+  }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: none; cursor: pointer;
+    font-size: 20px; color: var(--text-muted);
+  }
+  .modal-title { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .modal-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+  .modal-row {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg3); border-radius: 14px;
+    padding: 16px; margin-bottom: 12px;
+    font-size: 15px; font-weight: 600; color: var(--text);
+  }
+  .modal-row-icon { font-size: 28px; flex-shrink: 0; }
+
+  /* ITEM DETAIL MODAL */
+  .item-modal .modal { border-radius: 24px 24px 0 0; padding: 0; overflow: hidden; }
+  .item-modal-img { width: 100%; height: 200px; object-fit: cover; }
+  .item-modal-body { padding: 24px; }
+  .item-modal-title { font-size: 22px; font-weight: 800; color: var(--text); }
+  .item-modal-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 8px 0 16px; }
+  .item-modal-price { font-size: 22px; font-weight: 800; color: var(--orange); }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-muted);
+    padding: 8px 16px 2px;
+  }
+
+  /* Stagger animation delays */
+  .menu-item:nth-child(1){animation-delay:0.05s}
+  .menu-item:nth-child(2){animation-delay:0.1s}
+  .menu-item:nth-child(3){animation-delay:0.15s}
+  .menu-item:nth-child(4){animation-delay:0.2s}
+  .menu-item:nth-child(5){animation-delay:0.25s}
+  .menu-item:nth-child(6){animation-delay:0.3s}
+  .menu-item:nth-child(7){animation-delay:0.35s}
+  .menu-item:nth-child(8){animation-delay:0.4s}
+  .menu-item:nth-child(9){animation-delay:0.45s}
+  .menu-item:nth-child(10){animation-delay:0.5s}
+
+  @media(min-width:500px){
+    body { max-width: 480px; margin: 0 auto; }
+    .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); }
+    .modal { border-radius: 24px !important; margin-bottom: 24px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- HERO SECTION -->
+<div class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="topbar">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('am')">AM</button>
+      <button class="lang-btn" onclick="setLang('om')">OM</button>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title" id="heroTitle">AndOne Digital Menu</h1>
+    <div class="hero-badge">
+      <div class="hero-dot"></div>
+      <span id="heroBadge">AndOne</span>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories" id="categories"></div>
+
+<!-- MENU LIST -->
+<div class="menu-list" id="menuList"></div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn home-btn" onclick="showView('home')" aria-label="Home">🏠</button>
+  <button class="nav-btn" onclick="showModal('payment')" aria-label="Payment">💳</button>
+  <button class="nav-btn" onclick="showModal('about')" aria-label="About">ℹ️</button>
+</nav>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-backdrop" id="paymentModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('paymentModal')">✕</button>
+    <div class="modal-icon-wrap" style="background:#2d2010">💳</div>
+    <h2 class="modal-title" id="payTitle">Payment Information</h2>
+    <p class="modal-sub" id="paySub">Accepted payment methods at the counter</p>
+    <div class="modal-row"><span class="modal-row-icon">🏛️</span> <span>CBE Birr</span></div>
+    <div class="modal-row"><span class="modal-row-icon">📱</span> <span>Telebirr</span></div>
+    <div class="modal-row"><span class="modal-row-icon">💳</span> <span id="payCC">Credit Card</span></div>
+    <div class="modal-row"><span class="modal-row-icon">💵</span> <span id="payCash">Cash</span></div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="modal-backdrop" id="aboutModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeModal('aboutModal')">✕</button>
+    <div class="modal-icon-wrap" style="background:#0d1f3c">ℹ️</div>
+    <h2 class="modal-title" id="aboutTitle">About AndOne</h2>
+    <p class="modal-sub" id="aboutDesc">AndOne offers a unique blend of traditional flavors and modern culinary arts.</p>
+    <div class="modal-row"><span class="modal-row-icon">📍</span> <span id="aboutLoc">ADAMA, Ethiopia</span></div>
+    <div class="modal-row"><span class="modal-row-icon">📞</span> <span>+251 91 100 0000</span></div>
+  </div>
+</div>
+
+<!-- ITEM DETAIL MODAL -->
+<div class="modal-backdrop item-modal" id="itemModal">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" style="z-index:10;background:rgba(0,0,0,0.5);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center" onclick="closeModal('itemModal')">✕</button>
+    <img class="item-modal-img" id="itemModalImg" src="" alt="">
+    <div class="item-modal-body">
+      <h2 class="item-modal-title" id="itemModalName"></h2>
+      <p class="item-modal-desc" id="itemModalDesc"></p>
+      <div class="item-modal-price" id="itemModalPrice"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const T = {
+  en: {
+    heroTitle: "AndOne Opening Menu",
+    heroBadge: "AndOne",
+    payTitle: "Payment Information",
+    paySub: "Accepted payment methods at the counter",
+    payCC: "Credit Card",
+    payCash: "Cash",
+    aboutTitle: "About AndOne",
+    aboutDesc: "AndOne offers a unique blend of traditional flavors and modern culinary arts.",
+    aboutLoc: "ADAMA, Ethiopia",
+    cats: ["ALL", "HOT DRINKS", "DESSERTS", "COLD DRINKS", "FOOD"],
+    currency: "ETB"
+  },
+  am: {
+    heroTitle: "ኤንድዋን ምናለ",
+    heroBadge: "ኤንድዋን",
+    payTitle: "የክፍያ መረጃ",
+    paySub: "በካዉንተር ላይ ተቀባይነት ያላቸው የክፍያ ዘዴዎች",
+    payCC: "ክሬዲት ካርድ",
+    payCash: "ጥሬ ገንዘብ",
+    aboutTitle: "ስለ ኤንድዋን",
+    aboutDesc: "ኤንድዋን የባህላዊ ጣዕሞች እና ዘመናዊ የምግብ ጥበቦችን በልዩ ጥምረት ያቀርባል።",
+    aboutLoc: "አዳማ፣ ኢትዮጵያ",
+    cats: ["ሁሉም", "ሞቅ ያሉ መጠጦች", "ጣፋጮች", "ቀዝቃዛ መጠጦች", "ምግቦች"],
+    currency: "ብር"
+  },
+  om: {
+    heroTitle: "Caaru AndOne",
+    heroBadge: "AndOne",
+    payTitle: "Odeeffannoo Kaffaltii",
+    paySub: "Maloota kaffaltii fudhataman",
+    payCC: "Kaardii Liqii",
+    payCash: "Maallaqa",
+    aboutTitle: "Waa'ee AndOne",
+    aboutDesc: "AndOne dhandhama aadaa fi ogummaa nyaataa ammayyaa walitti makuun dhiyeessa.",
+    aboutLoc: "ADDAAMAA, Itoophiyaa",
+    cats: ["HUNDA", "DHUGAATII HO'AA", "MI'AAWAA", "DHUGAATII QABBANA'AA", "NYAATA"],
+    currency: "ETB"
+  }
+};
+
+const MENU = [
+  { id:1, cat:"HOT DRINKS", name:{en:"Espresso",am:"እስፕሬሶ",om:"Espressoo"}, desc:{en:"Strong and pure espresso shot, crafted to perfection.",am:"ጠንካራ እና ንጹህ የኤስፕሬሶ ሾት",om:"Cuunfaa espressoo jabaa fi qulqulluu"}, price:80, img:"https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&q=80" },
+  { id:2, cat:"HOT DRINKS", name:{en:"Macchiato",am:"ማኪያቶ",om:"Maacciyaatoo"}, desc:{en:"Espresso with a dash of frothy steamed milk.",am:"ኤስፕሬሶ ከአረፋማ ወተት ጋር",om:"Espressoo fi aannanii danqaloo"}, price:100, img:"https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?w=400&q=80" },
+  { id:3, cat:"HOT DRINKS", name:{en:"Matcha Latte",am:"ማቻ ላቴ",om:"Maachaa Laatee"}, desc:{en:"Premium matcha blended with steamed oat milk.",am:"ምርጥ ማቻ ከኦቲ ወተት ጋር",om:"Maachaa qulqulluu fi aannanii ootii"}, price:120, img:"https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=400&q=80" },
+  { id:4, cat:"HOT DRINKS", name:{en:"Cappuccino",am:"ካፑቺኖ",om:"Kaappuchiinoo"}, desc:{en:"Rich espresso topped with velvety foam and steamed milk.",am:"የተሻሻለ ካፑቺኖ",om:"Espressoo fi aannanii danqaloo"}, price:110, img:"https://images.unsplash.com/photo-1534778101976-62847782c213?w=400&q=80" },
+  { id:5, cat:"COLD DRINKS", name:{en:"Mango Smoothie",am:"ማንጎ ስሙዚ",om:"Juusii Maaangoo"}, desc:{en:"Fresh mango blended smooth with a hint of lime.",am:"ትኩስ ማንጎ ስሙዝ",om:"Maaangoo qurxummii fi laayimii"}, price:90, img:"https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" },
+  { id:6, cat:"COLD DRINKS", name:{en:"Lemon Mint",am:"ሊሞን ሚንት",om:"Liimoo Minxii"}, desc:{en:"Chilled lemon juice with fresh mint and sparkling water.",am:"ቀዝቃዛ ሊሞን ጭማቂ ከሚንት ጋር",om:"Juusii liimoo qabbana'aa fi minxii"}, price:75, img:"https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+  { id:7, cat:"DESSERTS", name:{en:"Tiramisu",am:"ቲራሚሱ",om:"Tiiraamiisuu"}, desc:{en:"Classic Italian dessert with mascarpone and espresso.",am:"የኢጣሊያ ክላሲክ ጣፋጭ",om:"Mi'aawaa Xaaliyaanoo aadaa"}, price:150, img:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80" },
+  { id:8, cat:"DESSERTS", name:{en:"Chocolate Cake",am:"ቸኮሌት ኬክ",om:"Keekii Chokolaatii"}, desc:{en:"Moist chocolate cake with ganache drizzle.",am:"ለስላሳ ቸኮሌት ኬክ",om:"Keekii chokolaatii jiidhaa"}, price:130, img:"https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80" },
+  { id:9, cat:"FOOD", name:{en:"Shiro",am:"ሽሮ",om:"Shiiroo"}, desc:{en:"Traditional shiro.",am:"ሽሮ",om:"Shiiroo aadaa"}, price:180, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAx2gPHzyMlUHzOf2XTSt4XmU7WGzv3XNiYQ&s" },
+  { id:10, cat:"FOOD", name:{en:"Avocado Toast",am:"አቮካዶ ቶስት",om:"Avookado Toos'tii"}, desc:{en:"Toasted sourdough with fresh avocado and chili flakes.",am:"ቶስት ከአቮካዶ ጋር",om:"Toos'tii fi avookadoo qilleensa ho'aa"}, price:140, img:"https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400&q=80" },
+];
+
+let lang = 'en';
+let theme = 'dark';
+let activecat = 'ALL';
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+  document.body.className = l === 'am' ? 'amharic' : l === 'om' ? 'oromo' : '';
+  updateTranslations();
+  renderCategories();
+  renderMenu();
+}
+
+function updateTranslations() {
+  const t = T[lang];
+  document.getElementById('heroTitle').textContent = t.heroTitle;
+  document.getElementById('heroBadge').textContent = t.heroBadge;
+  document.getElementById('payTitle').textContent = t.payTitle;
+  document.getElementById('paySub').textContent = t.paySub;
+  document.getElementById('payCC').textContent = t.payCC;
+  document.getElementById('payCash').textContent = t.payCash;
+  document.getElementById('aboutTitle').textContent = t.aboutTitle;
+  document.getElementById('aboutDesc').textContent = t.aboutDesc;
+  document.getElementById('aboutLoc').textContent = t.aboutLoc;
+}
+
+function toggleTheme() {
+  theme = theme === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+const CAT_MAP = { ALL:'ALL', 'ሁሉም':'ALL', 'HUNDA':'ALL', 'HOT DRINKS':'HOT DRINKS', 'ሞቅ ያሉ መጠጦች':'HOT DRINKS', 'DHUGAATII HO\'AA':'HOT DRINKS', 'DESSERTS':'DESSERTS', 'ጣፋጮች':'DESSERTS', 'MI\'AAWAA':'DESSERTS', 'COLD DRINKS':'COLD DRINKS', 'ቀዝቃዛ መጠጦች':'COLD DRINKS', 'DHUGAATII QABBANA\'AA':'COLD DRINKS', 'FOOD':'FOOD', 'ምግቦች':'FOOD', 'NYAATA':'FOOD' };
+
+function renderCategories() {
+  const t = T[lang];
+  const el = document.getElementById('categories');
+  el.innerHTML = t.cats.map((c,i) => {
+    const key = ['ALL','HOT DRINKS','DESSERTS','COLD DRINKS','FOOD'][i];
+    const isActive = activecat === key;
+    return `<button class="cat-btn${isActive?' active':''}" onclick="filterCat('${key}','${c}')">${c}</button>`;
+  }).join('');
+}
+
+function filterCat(key, label) {
+  activecat = key;
+  renderCategories();
+  renderMenu();
+}
+
+function renderMenu() {
+  const t = T[lang];
+  const list = document.getElementById('menuList');
+  const filtered = activecat === 'ALL' ? MENU : MENU.filter(m => m.cat === activecat);
+  list.innerHTML = '';
+
+  let lastCat = null;
+  filtered.forEach((item, i) => {
+    if (activecat === 'ALL' && item.cat !== lastCat) {
+      lastCat = item.cat;
+      const catNames = {en:item.cat, am:T.am.cats[['ALL','HOT DRINKS','DESSERTS','COLD DRINKS','FOOD'].indexOf(item.cat)], om:T.om.cats[['ALL','HOT DRINKS','DESSERTS','COLD DRINKS','FOOD'].indexOf(item.cat)]};
+      const h = document.createElement('div');
+      h.className = 'section-heading';
+      h.textContent = catNames[lang] || item.cat;
+      list.appendChild(h);
+    }
+    const el = document.createElement('div');
+    el.className = 'menu-item';
+    el.style.animationDelay = `${i * 0.05}s`;
+    el.innerHTML = `
+      <img class="item-img" src="${item.img}" alt="${item.name[lang]}" loading="lazy">
+      <div class="item-info">
+        <div class="item-name">${item.name[lang]}</div>
+        <div class="item-desc">${item.desc[lang]}</div>
+        <div class="item-price">${item.price} ${t.currency}</div>
+      </div>
+      <span class="item-arrow">›</span>
+    `;
+    el.onclick = () => openItem(item);
+    list.appendChild(el);
+  });
+}
+
+function openItem(item) {
+  const t = T[lang];
+  document.getElementById('itemModalImg').src = item.img;
+  document.getElementById('itemModalImg').alt = item.name[lang];
+  document.getElementById('itemModalName').textContent = item.name[lang];
+  document.getElementById('itemModalDesc').textContent = item.desc[lang];
+  document.getElementById('itemModalPrice').textContent = `${item.price} ${t.currency}`;
+  document.getElementById('itemModal').classList.add('open');
+}
+
+function showModal(type) {
+  document.getElementById(type + 'Modal').classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function showView(v) {
+  // just scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Parallax
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroBg = document.getElementById('heroBg');
+  if (heroBg) heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+}, { passive: true });
+
+// Close modals on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(b => {
+  b.addEventListener('click', e => {
+    if (e.target === b) b.classList.remove('open');
+  });
+});
+
+// Init
+renderCategories();
+renderMenu();
+</script>
+</body>
+</html>
