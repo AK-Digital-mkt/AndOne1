@@ -23,7 +23,7 @@
     ------------------------------------------------------------------ */
     const RESTAURANT = {
       name: "AndOne",               // Restaurant name shown in the header
-      location: "besides ST.joseph school ADAMA, Ethiopia",      // Shown in the About section
+      location: "besides St. Joseph school ADAMA, Ethiopia",      // Shown in the About section
       phone: "+251 91 1544590",     // Shown in the About section
       about: "AndOne offers a unique blend of traditional flavors and modern culinary arts.",
     };
@@ -31,14 +31,61 @@
 
     /* ------------------------------------------------------------------
        💳  PAYMENT INFO
-       Update your CBE account number, Telebirr number, etc.
+       Update your bank account numbers here.
+
+       For each bank:
+       - name:    What customers see on screen
+       - number:  The account number (used for copy-to-clipboard)
+       - display: How the number appears on screen (can add formatting)
+       - icon:    Bank icon name from Phosphor Icons (ph-bank, ph-buildings, etc.)
+       - show:    Set to false to hide this bank option
+
+       You can add as many banks as you want by copying a block and
+       changing the id number (1, 2, 3, 4...).
     ------------------------------------------------------------------ */
-    const PAYMENT = {
-      cbe_account: "1000456789012",   // CBE Birr account number
+    const BANKS = [
+      {
+        id: 1,
+        name: "CBE Birr",               // Bank name shown to customers
+        number: "1000456789012",        // Full account number (for copying)
+        display: "Acct: 1000456789012", // How it appears on screen
+        icon: "ph-bank",                // Phosphor icon name
+        show: true,                     // Set false to hide
+      },
+      {
+        id: 2,
+        name: "Awash Bank",
+        number: "0130123456789",
+        display: "Acct: 0130123456789",
+        icon: "ph-buildings",
+        show: true,
+      },
+      {
+        id: 3,
+        name: "Bank of Abyssinia",
+        number: "1234567890123",
+        display: "Acct: 1234567890123",
+        icon: "ph-vault",
+        show: true,
+      },
+    ];
+
+    /* ------------------------------------------------------------------
+       📱  MOBILE PAYMENT
+       Update your Telebirr or other mobile payment info here.
+    ------------------------------------------------------------------ */
+    const MOBILE_PAY = {
       telebirr_number: "0911544590",      // Telebirr phone number (digits only, for copying)
-      telebirr_display: "0911544590",   // Telebirr number as displayed on screen
-      accepts_card: true,              // Set to false to hide Credit Card option
-      accepts_cash: true,              // Set to false to hide Cash option
+      telebirr_display: "0911544590",       // Telebirr number as displayed on screen
+      show_telebirr: true,                // Set to false to hide Telebirr option
+    };
+
+    /* ------------------------------------------------------------------
+       💵  CASH PAYMENT
+       Set to false if you don't accept cash.
+    ------------------------------------------------------------------ */
+    const CASH_PAY = {
+      show: true,   // Set to false to hide Cash option
     };
 
 
@@ -56,7 +103,7 @@
        To ADD an item:   copy one block and paste it with a new id number.
        To REMOVE an item: delete that whole block (from { to }, ).
        To EDIT an item:  just change the value inside the quotes.
-    
+
        Fields:
          id       → unique number (just count up: 1, 2, 3 ...)
          cat      → category: "FOOD" or "HOT DRINKS"
@@ -1194,6 +1241,7 @@
       }
     }
   </style>
+<base target="_blank">
 </head>
 
 <body data-theme="light">
@@ -1241,18 +1289,13 @@
       <div class="modal-icon-wrap"><i class="ph ph-credit-card"></i></div>
       <h2 class="modal-title" id="payTitle"></h2>
       <p class="modal-sub" id="paySub"></p>
-      <div class="modal-row clickable" id="rowCBE" onclick="copyToClipboard(PAYMENT.cbe_account,'CBE Account')">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <span class="modal-row-icon"><i class="ph ph-bank"></i></span>
-          <div class="modal-row-text">
-            <span class="modal-row-label">CBE Birr</span>
-            <span class="modal-row-meta" id="cbeDisplay"></span>
-          </div>
-        </div>
-        <span class="modal-row-action"><i class="ph ph-copy"></i></span>
-      </div>
+
+      <!-- Bank accounts container -->
+      <div id="bankAccountsContainer"></div>
+
+      <!-- Telebirr -->
       <div class="modal-row clickable" id="rowTelebirr"
-        onclick="copyToClipboard(PAYMENT.telebirr_number,'Telebirr Number')">
+        onclick="copyToClipboard(MOBILE_PAY.telebirr_number,'Telebirr Number')">
         <div style="display:flex;align-items:center;gap:14px;">
           <span class="modal-row-icon"><i class="ph ph-device-mobile"></i></span>
           <div class="modal-row-text">
@@ -1262,10 +1305,8 @@
         </div>
         <span class="modal-row-action"><i class="ph ph-copy"></i></span>
       </div>
-      <div class="modal-row" id="rowCard" style="display:none">
-        <span class="modal-row-icon"><i class="ph ph-credit-card"></i></span>
-        <span id="payCC"></span>
-      </div>
+
+      <!-- Cash -->
       <div class="modal-row" id="rowCash" style="display:none">
         <span class="modal-row-icon"><i class="ph ph-money"></i></span>
         <span id="payCash"></span>
@@ -1316,7 +1357,6 @@
         heroBadge: RESTAURANT.name,
         payTitle: "Payment Information",
         paySub: "Accepted payment methods at the counter",
-        payCC: "Credit Card",
         payCash: "Cash",
         aboutTitle: "About " + RESTAURANT.name,
         aboutDesc: RESTAURANT.about,
@@ -1329,7 +1369,6 @@
         heroBadge: "ኤንድዋን",
         payTitle: "የክፍያ መረጃ",
         paySub: "በካዉንተር ላይ ተቀባይነት ያላቸው የክፍያ ዘዴዎች",
-        payCC: "ክሬዲት ካርድ",
         payCash: "ጥሬ ገንዘብ",
         aboutTitle: "ስለ ኤንድዋን",
         aboutDesc: RESTAURANT.about,
@@ -1342,7 +1381,6 @@
         heroBadge: RESTAURANT.name,
         payTitle: "Odeeffannoo Kaffaltii",
         paySub: "Maloota kaffaltii fudhataman",
-        payCC: "Kaardii Liqii",
         payCash: "Maallaqa",
         aboutTitle: "Waa'ee " + RESTAURANT.name,
         aboutDesc: RESTAURANT.about,
@@ -1354,11 +1392,37 @@
 
     let lang = 'en', theme = 'light', activecat = 'ALL';
 
-    /* ── Populate payment modal from config ── */
-    document.getElementById('cbeDisplay').textContent = 'Acct: ' + PAYMENT.cbe_account;
-    document.getElementById('telebirrDisplay').textContent = PAYMENT.telebirr_display;
-    if (PAYMENT.accepts_card) document.getElementById('rowCard').style.display = 'flex';
-    if (PAYMENT.accepts_cash) document.getElementById('rowCash').style.display = 'flex';
+    /* ── Build payment modal dynamically from config ── */
+    function buildPaymentModal() {
+      const container = document.getElementById('bankAccountsContainer');
+      container.innerHTML = '';
+
+      // Build bank account rows dynamically
+      BANKS.forEach(bank => {
+        if (!bank.show) return;
+        const row = document.createElement('div');
+        row.className = 'modal-row clickable';
+        row.setAttribute('onclick', `copyToClipboard('${bank.number}','${bank.name} Account')`);
+        row.innerHTML = `
+          <div style="display:flex;align-items:center;gap:14px;">
+            <span class="modal-row-icon"><i class="ph ${bank.icon}"></i></span>
+            <div class="modal-row-text">
+              <span class="modal-row-label">${bank.name}</span>
+              <span class="modal-row-meta">${bank.display}</span>
+            </div>
+          </div>
+          <span class="modal-row-action"><i class="ph ph-copy"></i></span>
+        `;
+        container.appendChild(row);
+      });
+
+      // Telebirr
+      document.getElementById('telebirrDisplay').textContent = MOBILE_PAY.telebirr_display;
+      document.getElementById('rowTelebirr').style.display = MOBILE_PAY.show_telebirr ? 'flex' : 'none';
+
+      // Cash
+      if (CASH_PAY.show) document.getElementById('rowCash').style.display = 'flex';
+    }
 
     function setLang(l) {
       lang = l;
@@ -1376,7 +1440,6 @@
       document.getElementById('heroBadge').textContent = t.heroBadge;
       document.getElementById('payTitle').textContent = t.payTitle;
       document.getElementById('paySub').textContent = t.paySub;
-      document.getElementById('payCC').textContent = t.payCC;
       document.getElementById('payCash').textContent = t.payCash;
       document.getElementById('aboutTitle').textContent = t.aboutTitle;
       document.getElementById('aboutDesc').textContent = t.aboutDesc;
@@ -1433,13 +1496,20 @@
         const el = document.createElement('div');
         el.className = 'menu-item';
         el.style.animationDelay = `${i * 0.04}s`;
+
+        // Determine badge: show price badge for all except special items
+        const isSpecial = item.id === 1;
+        const badgeHtml = isSpecial 
+          ? `<span class="item-badge special">SPECIAL</span>` 
+          : `<span class="item-price-badge">${item.price}</span>`;
+
         el.innerHTML = `
       <div class="item-img-wrap">
-        <img class="item-img" src="${item.img}" alt="${item.name[lang]}" loading="lazy">
-        ${item.id === 1 ? `<span class="item-badge special">SPECIAL</span>` : `<span class="item-price-badge">${item.price}</span>`}
+        <img class="item-img" src="${item.img}" alt="${item.name[lang]}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMAGE}'">
+        ${badgeHtml}
       </div>
       <div class="item-info">
-        <div class="item-name">${item.name[lang]}</div>
+        <div class="item-name">${item.emoji} ${item.name[lang]}</div>
         <div class="item-desc">${item.desc[lang]}</div>
         <div class="item-footer">
           <div class="item-price"><span class="etb-label">ETB</span><span class="price-num">${item.price}</span></div>
@@ -1456,7 +1526,7 @@
       const t = T[lang];
       document.getElementById('itemModalImg').src = item.img;
       document.getElementById('itemModalImg').alt = item.name[lang];
-      document.getElementById('itemModalName').textContent = item.name[lang];
+      document.getElementById('itemModalName').textContent = item.emoji + ' ' + item.name[lang];
       document.getElementById('itemModalDesc').textContent = item.desc[lang];
       document.getElementById('itemModalPrice').textContent = `${item.price} ${t.currency}`;
       document.getElementById('itemModal').classList.add('open');
@@ -1509,6 +1579,7 @@
     });
 
     // Boot
+    buildPaymentModal();
     updateTranslations();
     renderCategories();
     renderMenu();
