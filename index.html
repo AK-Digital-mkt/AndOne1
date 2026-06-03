@@ -464,7 +464,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80') center/cover no-repeat;
+      background: url('hero.jpg') center/cover no-repeat;
       filter: brightness(0.85);
     }
 
@@ -802,7 +802,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: rgba(0,0,0,0.82);
+      background: rgba(0, 0, 0, 0.82);
       color: #fff;
       font-size: 11px;
       font-weight: 800;
@@ -822,7 +822,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0, 0, 0, 0.75);
       color: #fff;
       font-size: 13px;
       font-weight: 800;
@@ -1241,7 +1241,7 @@
       }
     }
   </style>
-<base target="_blank">
+  <base target="_blank">
 </head>
 
 <body data-theme="light">
@@ -1499,8 +1499,8 @@
 
         // Determine badge: show price badge for all except special items
         const isSpecial = item.id === 1;
-        const badgeHtml = isSpecial 
-          ? `<span class="item-badge special">SPECIAL</span>` 
+        const badgeHtml = isSpecial
+          ? `<span class="item-badge special">SPECIAL</span>`
           : `<span class="item-price-badge">${item.price}</span>`;
 
         el.innerHTML = `
