@@ -19,38 +19,25 @@
 
     /* ------------------------------------------------------------------
        🏪  RESTAURANT INFO
-       Change these to update the name, location, and contact.
     ------------------------------------------------------------------ */
     const RESTAURANT = {
-      name: "AndOne",               // Restaurant name shown in the header
-      location: "besides St. Joseph school ADAMA, Ethiopia",      // Shown in the About section
-      phone: "+251 921109307",     // Shown in the About section
+      name: "AndOne",
+      location: "besides St. Joseph school ADAMA, Ethiopia",
+      phone: "+251 921109307",
       about: "AndOne offers a unique blend of traditional flavors and modern culinary arts.",
     };
 
-
     /* ------------------------------------------------------------------
        💳  PAYMENT INFO
-       Update your bank account numbers here.
-
-       For each bank:
-       - name:    What customers see on screen
-       - number:  The account number (used for copy-to-clipboard)
-       - display: How the number appears on screen (can add formatting)
-       - icon:    Bank icon name from Phosphor Icons (ph-bank, ph-buildings, etc.)
-       - show:    Set to false to hide this bank option
-
-       You can add as many banks as you want by copying a block and
-       changing the id number (1, 2, 3, 4...).
     ------------------------------------------------------------------ */
     const BANKS = [
       {
         id: 1,
-        name: "CBE Birr",               // Bank name shown to customers
-        number: "1000189273367",        // Full account number (for copying)
-        display: "Etenesh ketema: 1000189273367", // How it appears on screen
-        icon: "ph-bank",                // Phosphor icon name
-        show: true,                     // Set false to hide
+        name: "CBE Birr",
+        number: "1000189273367",
+        display: "Etenesh ketema: 1000189273367",
+        icon: "ph-bank",
+        show: true,
       },
       {
         id: 2,
@@ -72,46 +59,27 @@
 
     /* ------------------------------------------------------------------
        📱  MOBILE PAYMENT
-       Update your Telebirr or other mobile payment info here.
     ------------------------------------------------------------------ */
     const MOBILE_PAY = {
-      telebirr_number: "+251921109307",      // Telebirr phone number (digits only, for copying)
-      telebirr_display: "Etenesh Ketema:+251 921109307",       // Telebirr number as displayed on screen
-      show_telebirr: true,                // Set to false to hide Telebirr option
+      telebirr_number: "+251921109307",
+      telebirr_display: "Etenesh Ketema:+251 921109307",
+      show_telebirr: true,
     };
 
     /* ------------------------------------------------------------------
        💵  CASH PAYMENT
-       Set to false if you don't accept cash.
     ------------------------------------------------------------------ */
     const CASH_PAY = {
-      show: true,   // Set to false to hide Cash option
+      show: true,
     };
-
 
     /* ------------------------------------------------------------------
        🖼️  PLACEHOLDER IMAGE
-       This image shows for every menu item.
-       Replace the URL with your own image link, or use a local file path
-       like "images/food.jpg" if you host the file yourself.
     ------------------------------------------------------------------ */
     const PLACEHOLDER_IMAGE = "https://placehold.co/400x300/1e1e1e/F5A623?text=AndOne";
 
-
     /* ------------------------------------------------------------------
        🍽️  MENU ITEMS
-       To ADD an item:   copy one block and paste it with a new id number.
-       To REMOVE an item: delete that whole block (from { to }, ).
-       To EDIT an item:  just change the value inside the quotes.
-
-       Fields:
-         id       → unique number (just count up: 1, 2, 3 ...)
-         cat      → category: "FOOD" or "HOT DRINKS"
-         emoji    → any emoji shown as the icon
-         name     → item name in English (en), Amharic (am), Oromo (om)
-         desc     → short description in each language
-         price    → number only (no "Birr")
-         img      → leave as PLACEHOLDER_IMAGE, or paste a URL to a specific photo
     ------------------------------------------------------------------ */
     const MENU = [
 
@@ -390,61 +358,64 @@
         },
         price: 50, img: "lewzshay.jpg"
       },
-       {
+
+      /* ── DRINKS ────────────────────────────────────────────── */
+
+      {
         id: 28, cat: "DRINKS", emoji: "🥛",
-        name: { en: "Yogurt", am: "እርጎ", om: "beekama" },
+        name: { en: "Yogurt", am: "እርጎ", om: "Beekama" },
         desc: {
-          en: "Rich, thick, and naturally fermented fresh cow's milkk.",
+          en: "Rich, thick, and naturally fermented fresh cow's milk.",
           am: "እርጎ",
-          om: "beekama"
+          om: "Beekama"
         },
         price: 75, img: "ergo.jpg"
       },
-       {
+      {
         id: 29, cat: "DRINKS", emoji: "🥤",
-        name: { en: "Soft drinks", am: "ለስላሳ", om: "leslasaa" },
+        name: { en: "Soft Drinks", am: "ለስላሳ", om: "Leslasaa" },
         desc: {
           en: "Soft drink.",
           am: "ለስላሳ",
-          om: "leslasaa"
+          om: "Leslasaa"
         },
         price: 50, img: "leslasa.jpg"
       },
-       {
+      {
         id: 30, cat: "DRINKS", emoji: "🥤",
-        name: { en: "2 Littre Water", am: "2 ሊትር ውሃ", om: "2 bishaan balfaa" },
+        name: { en: "2 Litre Water", am: "2 ሊትር ውሃ", om: "2 Bishaan Balfaa" },
         desc: {
-          en: "2 Littre Water.",
+          en: "2 Litre Water.",
           am: "2 ሊትር ውሃ",
           om: "2 bishaan balfaa"
         },
         price: 60, img: "water.jpg"
       },
-       {
+      {
         id: 31, cat: "DRINKS", emoji: "🥤",
-        name: { en: "1 Littre Water", am: "1 ሊትር ውሃ", om: "1 bishaan balfaa" },
+        name: { en: "1 Litre Water", am: "1 ሊትር ውሃ", om: "1 Bishaan Balfaa" },
         desc: {
-          en: "1 Littre Water.",
+          en: "1 Litre Water.",
           am: "1 ሊትር ውሃ",
           om: "1 bishaan balfaa"
         },
         price: 50, img: "water.jpg"
       },
-       {
+      {
         id: 32, cat: "DRINKS", emoji: "🥤",
-        name: { en: "1/2 Littre Water", am: "1/2 ሊትር ውሃ", om: "1/2 bishaan balfaa" },
+        name: { en: "1/2 Litre Water", am: "1/2 ሊትር ውሃ", om: "1/2 Bishaan Balfaa" },
         desc: {
-          en: "1/2 Littre Water.",
+          en: "1/2 Litre Water.",
           am: "1/2 ሊትር ውሃ",
           om: "1/2 bishaan balfaa"
         },
         price: 35, img: "water.jpg"
       },
-       {
+      {
         id: 33, cat: "DRINKS", emoji: "🥤",
-        name: { en: "1/4 Littre Water", am: "1/4 ሊትር ውሃ", om: "1/4 bishaan balfaa" },
+        name: { en: "1/4 Litre Water", am: "1/4 ሊትር ውሃ", om: "1/4 Bishaan Balfaa" },
         desc: {
-          en: "1/4 Littre Water.",
+          en: "1/4 Litre Water.",
           am: "1/4 ሊትር ውሃ",
           om: "1/4 bishaan balfaa"
         },
@@ -458,9 +429,6 @@
        ============================================================ */
   </script>
 
-  <!-- ============================================================
-     ⚙️  APP STYLES & LOGIC — no need to edit below
-     ============================================================ -->
   <style>
     :root {
       --orange: #F5A623;
@@ -1350,7 +1318,7 @@
       <h2 class="modal-title" id="payTitle"></h2>
       <p class="modal-sub" id="paySub"></p>
 
-      <!-- Bank accounts container -->
+      <!-- Bank accounts container (built dynamically) -->
       <div id="bankAccountsContainer"></div>
 
       <!-- Telebirr -->
@@ -1410,7 +1378,7 @@
   <div id="toast" class="toast"><i class="ph ph-check-circle"></i> <span id="toastMsg">Copied!</span></div>
 
   <script>
-    /* ── Translations (UI strings only — item names live in MENU above) ── */
+    /* ── Translations ── */
     const T = {
       en: {
         heroTitle: RESTAURANT.name + " Digital Menu",
@@ -1421,7 +1389,13 @@
         aboutTitle: "About " + RESTAURANT.name,
         aboutDesc: RESTAURANT.about,
         aboutLoc: RESTAURANT.location,
-        cats: ["ALL", "FOOD", "HOT DRINKS"],
+        // cat keys → display labels
+        catLabels: {
+          ALL: "All",
+          FOOD: "Food",
+          "HOT DRINKS": "Hot Drinks",
+          DRINKS: "Drinks",
+        },
         currency: "Birr"
       },
       am: {
@@ -1433,7 +1407,12 @@
         aboutTitle: "ስለ ኤንድዋን",
         aboutDesc: RESTAURANT.about,
         aboutLoc: RESTAURANT.location,
-        cats: ["ሁሉም", "ምግቦች", "ሞቅ ያሉ መጠጦች"],
+        catLabels: {
+          ALL: "ሁሉም",
+          FOOD: "ምግቦች",
+          "HOT DRINKS": "ሞቅ ያሉ መጠጦች",
+          DRINKS: "መጠጦች",
+        },
         currency: "ብር"
       },
       om: {
@@ -1445,19 +1424,23 @@
         aboutTitle: "Waa'ee " + RESTAURANT.name,
         aboutDesc: RESTAURANT.about,
         aboutLoc: RESTAURANT.location,
-        cats: ["HUNDA", "NYAATA", "DHUGAATII HO'AA"],
+        catLabels: {
+          ALL: "Hunda",
+          FOOD: "Nyaata",
+          "HOT DRINKS": "Dhugaatii Ho'aa",
+          DRINKS: "Dhugaatii",
+        },
         currency: "ETB"
       }
     };
 
     let lang = 'en', theme = 'light', activecat = 'ALL';
 
-    /* ── Build payment modal dynamically from config ── */
+    /* ── Build payment modal dynamically ── */
     function buildPaymentModal() {
       const container = document.getElementById('bankAccountsContainer');
       container.innerHTML = '';
 
-      // Build bank account rows dynamically
       BANKS.forEach(bank => {
         if (!bank.show) return;
         const row = document.createElement('div');
@@ -1476,11 +1459,8 @@
         container.appendChild(row);
       });
 
-      // Telebirr
       document.getElementById('telebirrDisplay').textContent = MOBILE_PAY.telebirr_display;
       document.getElementById('rowTelebirr').style.display = MOBILE_PAY.show_telebirr ? 'flex' : 'none';
-
-      // Cash
       if (CASH_PAY.show) document.getElementById('rowCash').style.display = 'flex';
     }
 
@@ -1491,7 +1471,9 @@
       document.body.classList.remove('amharic', 'oromo');
       if (l === 'am') document.body.classList.add('amharic');
       else if (l === 'om') document.body.classList.add('oromo');
-      updateTranslations(); renderCategories(); renderMenu();
+      updateTranslations();
+      renderCategories();
+      renderMenu();
     }
 
     function updateTranslations() {
@@ -1513,7 +1495,7 @@
       document.getElementById('themeIcon').className = theme === 'light' ? 'ph ph-sun' : 'ph ph-moon';
     }
 
-    /* ── Build category list dynamically from MENU data ── */
+    /* ── Derive unique ordered category list from MENU ── */
     function getCategories() {
       const seen = new Set();
       MENU.forEach(m => seen.add(m.cat));
@@ -1521,62 +1503,63 @@
     }
 
     function renderCategories() {
-      const t = T[lang];
+      const labels = T[lang].catLabels;
       const cats = getCategories();
-      const keyToLabel = { 'ALL': t.cats[0], 'FOOD': t.cats[1], 'HOT DRINKS': t.cats[2] };
       const el = document.getElementById('categories');
-      const allLabel = t.cats[0];
-      el.innerHTML = `<button class="cat-btn${activecat === 'ALL' ? ' active' : ''}" onclick="filterCat('ALL')">${allLabel}</button>`;
+      el.innerHTML = `<button class="cat-btn${activecat === 'ALL' ? ' active' : ''}" onclick="filterCat('ALL')">${labels['ALL']}</button>`;
       cats.forEach(cat => {
-        const label = keyToLabel[cat] || cat;
+        const label = labels[cat] || cat;
         el.innerHTML += `<button class="cat-btn${activecat === cat ? ' active' : ''}" onclick="filterCat('${cat}')">${label}</button>`;
       });
     }
 
     function filterCat(key) {
-      activecat = key; renderCategories(); renderMenu();
+      activecat = key;
+      renderCategories();
+      renderMenu();
     }
 
     function renderMenu() {
       const t = T[lang];
+      const labels = t.catLabels;
       const list = document.getElementById('menuList');
       const filtered = activecat === 'ALL' ? MENU : MENU.filter(m => m.cat === activecat);
       list.innerHTML = '';
-      const keyToLabel = { 'FOOD': t.cats[1], 'HOT DRINKS': t.cats[2] };
       let lastCat = null;
 
       filtered.forEach((item, i) => {
+        // Section heading in ALL view
         if (activecat === 'ALL' && item.cat !== lastCat) {
           lastCat = item.cat;
           const h = document.createElement('div');
           h.className = 'section-heading';
-          h.textContent = keyToLabel[item.cat] || item.cat;
+          h.textContent = labels[item.cat] || item.cat;
           list.appendChild(h);
         }
+
         const el = document.createElement('div');
         el.className = 'menu-item';
         el.style.animationDelay = `${i * 0.04}s`;
 
-        // Determine badge: show price badge for all except special items
         const isSpecial = item.id === 1;
         const badgeHtml = isSpecial
           ? `<span class="item-badge special">SPECIAL</span>`
           : `<span class="item-price-badge">${item.price}</span>`;
 
         el.innerHTML = `
-      <div class="item-img-wrap">
-        <img class="item-img" src="${item.img}" alt="${item.name[lang]}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMAGE}'">
-        ${badgeHtml}
-      </div>
-      <div class="item-info">
-        <div class="item-name">${item.emoji} ${item.name[lang]}</div>
-        <div class="item-desc">${item.desc[lang]}</div>
-        <div class="item-footer">
-          <div class="item-price"><span class="etb-label">ETB</span><span class="price-num">${item.price}</span></div>
-          <span class="item-arrow"><i class="ph ph-arrow-right"></i></span>
-        </div>
-      </div>
-    `;
+          <div class="item-img-wrap">
+            <img class="item-img" src="${item.img}" alt="${item.name[lang]}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMAGE}'">
+            ${badgeHtml}
+          </div>
+          <div class="item-info">
+            <div class="item-name">${item.emoji} ${item.name[lang]}</div>
+            <div class="item-desc">${item.desc[lang]}</div>
+            <div class="item-footer">
+              <div class="item-price"><span class="etb-label">ETB</span><span class="price-num">${item.price}</span></div>
+              <span class="item-arrow"><i class="ph ph-arrow-right"></i></span>
+            </div>
+          </div>
+        `;
         el.onclick = () => openItem(item);
         list.appendChild(el);
       });
@@ -1585,6 +1568,7 @@
     function openItem(item) {
       const t = T[lang];
       document.getElementById('itemModalImg').src = item.img;
+      document.getElementById('itemModalImg').onerror = function () { this.src = PLACEHOLDER_IMAGE; };
       document.getElementById('itemModalImg').alt = item.name[lang];
       document.getElementById('itemModalName').textContent = item.emoji + ' ' + item.name[lang];
       document.getElementById('itemModalDesc').textContent = item.desc[lang];
@@ -1592,15 +1576,21 @@
       document.getElementById('itemModal').classList.add('open');
     }
 
-    function showModal(type) { document.getElementById(type + 'Modal').classList.add('open'); }
+    function showModal(type) {
+      document.getElementById(type + 'Modal').classList.add('open');
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.remove('open');
-      setTimeout(() => { if (!document.querySelector('.modal-backdrop.open')) activateNav('home'); }, 100);
+      setTimeout(() => {
+        if (!document.querySelector('.modal-backdrop.open')) activateNav('home');
+      }, 100);
     }
 
     function activateNav(navId) {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.getElementById('nav' + navId.charAt(0).toUpperCase() + navId.slice(1));
+      const key = navId.charAt(0).toUpperCase() + navId.slice(1);
+      const btn = document.getElementById('nav' + key);
       if (btn) btn.classList.add('active');
       if (navId === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
       else if (navId === 'payment') showModal('payment');
@@ -1608,15 +1598,20 @@
     }
 
     async function copyToClipboard(text, label) {
-      try { await navigator.clipboard.writeText(text); }
-      catch {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
         const ta = document.createElement('textarea');
-        ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
         document.body.removeChild(ta);
       }
       showToast(label + ' copied!');
     }
+
     function showToast(msg) {
       const t = document.getElementById('toast');
       document.getElementById('toastMsg').textContent = msg;
@@ -1633,7 +1628,9 @@
       b.addEventListener('click', e => {
         if (e.target === b) {
           b.classList.remove('open');
-          setTimeout(() => { if (!document.querySelector('.modal-backdrop.open')) activateNav('home'); }, 100);
+          setTimeout(() => {
+            if (!document.querySelector('.modal-backdrop.open')) activateNav('home');
+          }, 100);
         }
       });
     });
